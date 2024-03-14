@@ -103,11 +103,9 @@ echo "      # #    # #      #      #           # #      #####  # #####    #   ";
 echo "#     # #    # #      #      #      #    # #    # #   #  # #        #   ";
 echo " #####  #    # ###### ###### ######  ####   ####  #    # # #        #   ";
 echo "                                                                        ";
-echo "                                                                        ";
-echo "                                                                        ";
 echo "##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ##### ";
-echo "Menú"
-echo "Escoge un programa"
+echo "                                                                        ";
+echo "Menú: Escoge un programa"
 echo "1)Imprimir Syslog Invertido"
 echo "2)Variables y Operaciones"
 echo "3)Validar Archivos"
@@ -143,6 +141,8 @@ validarArgumentos $x $y $z
 ;;
 7)
 control=1
+echo "Estas saliendo del programa..."
+sleep 1
 ;;
 *)
 echo "No ingresaste una opción válida"
