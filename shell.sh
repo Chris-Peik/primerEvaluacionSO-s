@@ -86,9 +86,9 @@ function validarArgumentos {
 
 function copyFiles {
     echo "Ingresa el nombre del archivo a leer, recuerda usar la extensión"
-    read copy
+    read copy 2>/dev/null
 
-if test -e $copy && test -n "$copy"
+if test -e $copy 2>/dev/null && test -n "$copy" 2>/dev/null
     then
         echo "Archivo Válido"
     else
@@ -99,7 +99,7 @@ if test -e $copy && test -n "$copy"
     echo "Ingresa el directorio de destino (Se cuidadoso)"
     read dir
 
-    if test -d $dir
+    if test -d $dir 2>/dev/null
         then
         echo "Directorio Válido"
         else
@@ -125,11 +125,13 @@ function findRec {
     echo "Ingresa el directorio de búsqueda:"
     read dir
 
-    if test ! -d $dir 
-    then
-    echo "El directorio no existe"
-    return
-    fi
+    if test -d $dir 2>/dev/null
+        then
+        echo "Directorio Válido"
+        else
+        echo "El directorio no existe"
+        return
+        fi
 
     echo "Ingresa el patrón que deseas buscar:"
     read patt
@@ -187,10 +189,9 @@ archivo3="archivo3.sh"
 validarArchivos $archivo1 $archivo2 $archivo3
 ;;
 4)
-x=1
-y=2
-z=3
-validarArgumentos $x $y $z
+echo "Ingresa tus argumentos, separados sólo por espacios"
+read arg
+validarArgumentos $arg 
 ;;
 5)
 copyFiles
