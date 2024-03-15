@@ -74,7 +74,6 @@ fi
 }
 
 function validarArgumentos {
-
     if test $# -ne 0
     then
         echo "Hay $# argumentos cuyos valores son:"
@@ -83,6 +82,64 @@ function validarArgumentos {
         echo "Sin argumentos"
     fi
 
+}
+
+function copyFiles {
+    echo "Ingresa el nombre del archivo a leer, recuerda usar la extensión"
+    read copy
+
+if test -e $copy && test -n "$copy"
+    then
+        echo "Archivo Válido"
+    else
+    echo "El archivo no existe"
+    return
+    fi
+
+    echo "Ingresa el directorio de destino (Se cuidadoso)"
+    read dir
+
+    if test -d $dir
+        then
+        echo "Directorio Válido"
+        else
+        echo "El directorio no existe"
+        return
+        fi
+while read -r line
+    do 
+    if test -e $line
+    then
+    cp $line $dir
+    echo $line" copiado correctamente"
+    else 
+    echo "El archivo: $line no existe"
+    fi
+    done < $copy
+
+    echo "Copia Terminada"
+}
+
+function findRec {
+
+    echo "Ingresa el directorio de búsqueda:"
+    read dir
+
+    if test ! -d $dir 
+    then
+    echo "El directorio no existe"
+    return
+    fi
+
+    echo "Ingresa el patrón que deseas buscar:"
+    read patt
+
+    resumen="resumen.txt"
+    touch $resumen
+
+    grep -r -n --exclude="$resumen" "$patt" > $resumen
+
+    echo "Busqueda completada. El resultado se encuentra en: $resumen"
 }
 
 
@@ -109,9 +166,9 @@ echo "Menú: Escoge un programa"
 echo "1)Imprimir Syslog Invertido"
 echo "2)Variables y Operaciones"
 echo "3)Validar Archivos"
-echo "4)"
-echo "5)Validar Argumentos"
-echo "6)"
+echo "4)Validar Argumentos"
+echo "5)Copiar archivos leidos de un archivo"
+echo "6)Búsqueda Recursiva de Patrones"
 echo "7)Salir"
 read app
 echo ""
@@ -130,14 +187,16 @@ archivo3="archivo3.sh"
 validarArchivos $archivo1 $archivo2 $archivo3
 ;;
 4)
-;;
-5)
 x=1
 y=2
 z=3
 validarArgumentos $x $y $z
 ;;
+5)
+copyFiles
+;;
 6)
+findRec
 ;;
 7)
 control=1
